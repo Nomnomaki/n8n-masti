@@ -44,7 +44,14 @@
         });
 
         const data = await res.json();
-        responseBox.innerText = data;
+
+        // Use the 'output' field from the AI Agent
+        if (data && data.output) {
+          responseBox.innerText = data.output;
+        } else {
+          responseBox.innerText = JSON.stringify(data, null, 2); // fallback
+        }
+
       } catch (error) {
         responseBox.innerText = "Error: " + error.message;
       }
