@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ask the AI</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 80%;
+    }
+    #response {
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ask the AI</h1>
+  <input type="text" id="userInput" placeholder="Type your question here..." />
+  <br>
+  <button onclick="sendMessage()">Submit</button>
+  <div id="response"></div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput").value;
+      const responseBox = document.getElementById("response");
+      responseBox.innerText = "Thinking...";
+
+      try {
+        const res = await fetch("https://aniketsaxena.app.n8n.cloud/webhook-test/bbfd8885-1c10-49c7-8f6c-3bb637e5174c", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userInput: input })
+        });
+
+        const data = await res.json();
+        responseBox.innerText = data;
+      } catch (error) {
+        responseBox.innerText = "Error: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
