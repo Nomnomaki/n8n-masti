@@ -23,14 +23,14 @@
 </head>
 <body>
   <h1>Ask the AI</h1>
-  <input type="text" id="userInput" placeholder="Type your question here..." />
+  <input type="text" id="chatInput" placeholder="Type your question here..." />
   <br>
   <button onclick="sendMessage()">Submit</button>
   <div id="response"></div>
 
   <script>
     async function sendMessage() {
-      const input = document.getElementById("userInput").value;
+      const input = document.getElementById("chatInput").value;
       const responseBox = document.getElementById("response");
       responseBox.innerText = "Thinking...";
 
@@ -40,7 +40,7 @@
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ userInput: input })
+          body: JSON.stringify({ chatInput: input })
         });
 
         const data = await res.json();
